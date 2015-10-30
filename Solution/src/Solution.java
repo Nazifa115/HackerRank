@@ -1,27 +1,29 @@
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Scanner;
 
+
 public class Solution {
-	private static Scanner sc;
 
 	public static void main(String[] args) {
-		sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		for (int i = 1; i <= N; i++) {
-			for (int j = N-i; j > 0; j--) {
-				System.out.print(" ");
+		Scanner sc = new Scanner(System.in);
+		String givenTime = sc.next();
+		String[] token = givenTime.split(":");
+		//String hour = givenTime.substring(0, 1);
+		String a = givenTime.substring(8, 10);
+		System.out.println(a);
+		Integer h = Integer.parseInt(token[0]);
+		if (a.contentEquals("PM")) {
+			if (h != 12)
+			{
+				int tmp = h + 12;
+				token[0] = Integer.toString(tmp);
 			}
-			for (int j = 0; j < i; j++) {
-				System.out.print("#");
+		}else {
+			if (h == 12) {
+				token[0] = "00";
 			}
-			System.out.println("");;
 		}
-
+		String last = token[2].substring(0, 2);
+		System.out.println(token[0] + ":" + token[1] + ":" + last);
 	}
 
-	public static BigDecimal round(double d, int pos) {
-		BigDecimal bd = new BigDecimal(d).setScale(pos, RoundingMode.HALF_UP);
-		return bd;
-	}
 }
