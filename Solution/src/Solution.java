@@ -3,25 +3,20 @@ import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class Solution {
+	private static Scanner sc;
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		//int[] input = new int[n];
-		int noZero = 0 , noPos = 0, noNeg =0;
-		for (int i = 0; i < n; i++) {
-			int num = sc.nextInt();
-			if (num < 0) {
-				noNeg++;
-			}else if (num == 0) {
-				noZero++;
-			}else if (num > 0) {
-				noPos++;
+		sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		for (int i = 1; i <= N; i++) {
+			for (int j = N-i; j > 0; j--) {
+				System.out.print(" ");
 			}
+			for (int j = 0; j < i; j++) {
+				System.out.print("#");
+			}
+			System.out.println("");;
 		}
-		System.out.println(round((double)noPos/n, 3));
-		System.out.println(round((double)noNeg/n, 3));
-		System.out.println(round((double)noZero/n, 3));
 
 	}
 
