@@ -1,74 +1,45 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
+/*
+ * Sherlock and The Beast https://www.hackerrank.com/challenges/sherlock-and-the-beast
+ * @author: Nazifa Karima*/
 public class Solution {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int t = Integer.parseInt(sc.nextLine());
-		int[] input = new int[t]; 
-		for (int i = 0; i < t; i++) {
-			input[i] = Integer.parseInt(sc.nextLine());
-		}
-		for (int j = 0; j < input.length; j++) {
-			int n = input[j];
-			boolean resultFound = false;
-			if (isDivisibleByThree(n)) {
-				resultFound = true;
-				createAndPrintresult(n, 0);
-				
-			} else if (!resultFound && !isDivisibleByThree(n)) {
-				int divisor = n / 3;
-				while (divisor > 0) {
-					int noOfThree = n - (divisor * 3);
-					if (isDivisibleByFive(noOfThree)) {
-						resultFound = true;
-						createAndPrintresult(n, noOfThree);
-					}
-					divisor--;
-				}
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		for (int a0 = 0; a0 < t; a0++) {
+			int n = in.nextInt();
+			int n_1 = n;
+			while (n_1 > 2 && n_1 % 3 != 0) {
+				n_1 = n_1 - 5;
 			}
-			if (!resultFound) {
-				if (isDivisibleByFive(n)) {
-					resultFound = true;
-createAndPrintresult(n, n);
+
+			int count_3 = n - n_1;// divisible by 5
+			int count_5 = n_1;
+			ArrayList<Integer> number = new ArrayList<Integer>();
+			for (int i = 0; i < n; i++) {
+				if ((count_5 % 3) != 0) {
+					number.add(-1);
+					break;
+				} else if (count_3 > 0) {
+					number.add(3);
+					count_3--;
+				} else {
+					number.add(5);
 				}
 			}
 
-			if (!resultFound) {
-				System.out.println("-1");
+			int i = number.size();
+			while (i > 0) {
+				System.out.print(number.get(i - 1));
+				i--;
 			}
+			System.out.println();
 		}
-	}
 
-	private static void createAndPrintresult(int n, int noOfThree) {
-		int[] result = new int[n];
-		for (int i = 0; i < result.length; i++) {
-			if (i < (result.length - noOfThree)) {
-				result[i] = 5;
-			} else {
-				result[i] = 3;
-			}
-		}
-		printResult(result);
-	}
-
-	private static void printResult(int[] result) {
-		for (int i = 0; i < result.length; i++) {
-			System.out.print(result[i]);
-		}System.out.println();
-	}
-
-	private static boolean isDivisibleByThree(int n) {
-		if (n / 3 > 0 && n % 3 == 0)
-			return true;
-		else
-			return false;
-	}
-
-	private static boolean isDivisibleByFive(int n) {
-		if (n / 5 > 0 && n % 5 == 0)
-			return true;
-		else
-			return false;
 	}
 }
