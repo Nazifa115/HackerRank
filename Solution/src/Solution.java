@@ -1,4 +1,5 @@
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Solution {
@@ -6,13 +7,16 @@ public class Solution {
     public static void main(String[] args) {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */ 
         Scanner sc = new Scanner(System.in);
-        Integer n = sc.nextInt();
-        Long fac = factorial(n);
+        BigInteger n = sc.nextBigInteger();
+        BigInteger fac = factorial(n);
         System.out.println(fac);
     }
-    public static Long factorial(int n){
-        if(n == 1)
-            return (long) 1;
-        else return (n*factorial(n-1));
+    public static BigInteger factorial(BigInteger n){
+        if(n.equals(BigInteger.ONE))
+            return  BigInteger.ONE;
+        else 
+        return (n.multiply(factorial(n.subtract(BigInteger.ONE))));
+        	
+        
     }
 }
