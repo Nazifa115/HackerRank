@@ -1,22 +1,17 @@
 import java.io.*;
-import java.math.BigInteger;
 import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
 public class Solution {
 
     public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */ 
-        Scanner sc = new Scanner(System.in);
-        BigInteger n = sc.nextBigInteger();
-        BigInteger fac = factorial(n);
-        System.out.println(fac);
-    }
-    public static BigInteger factorial(BigInteger n){
-        if(n.equals(BigInteger.ONE))
-            return  BigInteger.ONE;
-        else 
-        return (n.multiply(factorial(n.subtract(BigInteger.ONE))));
-        	
-        
+        Scanner in = new Scanner(System.in);
+        int[] h = new int[26];
+        for(int h_i=0; h_i < 26; h_i++){
+            h[h_i] = in.nextInt();
+        }
+        String word = in.next();
     }
 }
