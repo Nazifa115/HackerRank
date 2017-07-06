@@ -17,6 +17,7 @@ public class Solution {
             double median;
             if(i==0){
             	median = runningList.get(0);
+            	
             }
             else if(i%2 != 0){//even
             	int index = i/2;
