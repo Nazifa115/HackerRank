@@ -1,32 +1,34 @@
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+// IMPORT LIBRARY PACKAGES NEEDED BY YOUR PROGRAM
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newHashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Solution {
-//Given a list of forward routes and return routes, find the optimal route/s which is the closest (or equal) but not greater than the maxTravelDist
-    List<List<Integer>> findMaxOptimalRoute(List<List<Integer>> forwardRouteList, List<List<Integer>> returnRouteList, Integer maxTravelDist) {
-        {
-            Map<Integer, List<List<Integer>>> optimalTravelDistance = newHashMap();
-            Integer maxCombinedDistFound = -1;
-            for (List<Integer> fwdDistanceIdPair:forwardRouteList) {
-                for (List<Integer> retDistanceIDPair:returnRouteList) {
-                    Integer combinedDistance = fwdDistanceIdPair.get(1) + retDistanceIDPair.get(1);
-                    if(combinedDistance <= maxTravelDist && combinedDistance >=maxCombinedDistFound) {
-                        maxCombinedDistFound = combinedDistance;
-                        List<Integer> pairToAdd = newArrayList(fwdDistanceIdPair.get(0), retDistanceIDPair.get(0));
-                        List<List<Integer>> existingPairs = optimalTravelDistance.containsKey(combinedDistance)? optimalTravelDistance.get(combinedDistance):newArrayList();
-                        existingPairs.add(pairToAdd);
-                        optimalTravelDistance.put(combinedDistance, existingPairs);
-                    }
+
+    public static void main(String[] args) {
+        List<Integer> results = cellCompete(new int[]{1,0,0,0,0,1,0,0}, 1);
+        System.out.println();
+    }
+    //Get state of list of cells after a certain number of days. A cell turns inactive iff both of it's adjacent cells have the same state (both are inactive or b oth are active) on the previous day.
+
+    public static List<Integer> cellCompete(int[] states, int days) {
+        for (int day = 0; day < days; day++) {
+            List<Integer> previousStates = Arrays.stream(states).boxed().collect(Collectors.toList());
+
+            for (int i = 0; i <= states.length-1; i++) {
+                if( i == 0){
+                    states[i] = previousStates.get(i+1).equals(1)? 1:0;
+                } else if ( i == states.length -1){
+                    states[i] = previousStates.get(i-1).equals(1)? 1:0;
+                } else{
+                    states[i] = (previousStates.get(i-1).equals(0) && previousStates.get(i+1).equals(0)) || (previousStates.get(i-1).equals(1) && previousStates.get(i+1).equals(1))? 0:1;
                 }
             }
-            List<Integer> sortedOptimalDistance = newArrayList(optimalTravelDistance.keySet());
-            Collections.sort(sortedOptimalDistance, Collections.reverseOrder());
-            if(optimalTravelDistance.size()>0) return optimalTravelDistance.get(sortedOptimalDistance.get(0));
-            else return newArrayList();
+
         }
+        List<Integer> results = Arrays.stream(states).boxed().collect(Collectors.toList());
+        return results;
     }
 }
