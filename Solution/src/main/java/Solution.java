@@ -47,4 +47,56 @@ public class Solution {
         return currentRow;
 
     }
+
+    public static int getClosingParen(String sentence, int openingParenIndex) {
+        int openNestedParens = 0;
+
+        for (int position = openingParenIndex + 1; position < sentence.length(); position++) {
+            char c = sentence.charAt(position);
+
+            if (c == '(') {
+                openNestedParens++;
+            } else if (c == ')') {
+                if (openNestedParens == 0) {
+                    return position;
+                } else {
+                    openNestedParens--;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("No closing parenthesis :(");
+    }
+
+
+    class DoublyLinkedListNode {
+          int data;
+          DoublyLinkedListNode next;
+          DoublyLinkedListNode prev;
+    }
+    public DoublyLinkedListNode sortedInsert(DoublyLinkedListNode head, int data) {
+        boolean inserted = false;
+        DoublyLinkedListNode cur = new DoublyLinkedListNode();
+        cur.data = head.data;
+        cur.next = head.next;
+        cur.prev = head.prev;
+        DoublyLinkedListNode temp = new DoublyLinkedListNode();
+        temp.data = data;
+        while(null!=cur.next){
+            if(cur.next.data>=data && cur.data<=data){
+                temp.prev = cur.prev;
+                temp.next = cur;
+                head.prev = temp;
+                cur.prev.next = temp;
+                inserted = true;
+            }
+            cur = cur.next;
+        }
+        if(!inserted){
+            temp.prev = cur;
+            cur.next = temp;
+            temp.next = null;
+        }
+        return  head;
+    }
 }
