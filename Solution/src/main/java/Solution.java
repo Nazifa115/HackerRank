@@ -1,19 +1,15 @@
-// IMPORT LIBRARY PACKAGES NEEDED BY YOUR PROGRAM
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 
 public class Solution {
 
-    public static void main(String[] args) {
-        List<Integer> results = cellCompete(new int[]{1,0,0,0,0,1,0,0}, 1);
-        System.out.println();
-    }
     //Get state of list of cells after a certain number of days. A cell turns inactive iff both of it's adjacent cells have the same state (both are inactive or b oth are active) on the previous day.
 
     public static List<Integer> cellCompete(int[] states, int days) {
+
         for (int day = 0; day < days; day++) {
             List<Integer> previousStates = Arrays.stream(states).boxed().collect(Collectors.toList());
 
@@ -30,5 +26,25 @@ public class Solution {
         }
         List<Integer> results = Arrays.stream(states).boxed().collect(Collectors.toList());
         return results;
+    }
+
+    public List<Integer> getRow(int rowIndex) {
+        //Map<Integer, List<Integer>> pascalTriangle = new HashMap<>();
+        //pascalTriangle.put(0, new ArrayList<>(1));
+        List<Integer> previousRow = new ArrayList<>(1);
+        List<Integer> currentRow = new ArrayList<>(1);
+        for (int i = 0; i <= rowIndex; i++) {
+            currentRow.clear();
+            for (int j = 0; j < i+1; j++) {
+                if (j==0 || j==i){
+                    currentRow.add(1);
+                }else {
+                currentRow.add(previousRow.get(j-1) + previousRow.get(j));
+                }
+            }
+            previousRow = new ArrayList<>(currentRow);
+        }
+        return currentRow;
+
     }
 }
