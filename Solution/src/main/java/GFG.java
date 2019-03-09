@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.PriorityQueue;
-
 class GFG {
 
     //Pascal function

@@ -1,7 +1,9 @@
 package utils;
 
 // BFS(int s) traverses vertices reachable from s.
-import java.util.*;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 // This class represents a directed graph using adjacency list representation
 class Graph
