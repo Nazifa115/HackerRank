@@ -5,6 +5,37 @@ import java.util.stream.Collectors;
 
 public class Solution {
 
+    /*https://leetcode.com/problems/remove-element/*/
+    public int removeElement(int[] nums, int val) {
+        int count = 0;
+        int length = nums.length;
+
+        for(int i = 0; i< length; i++){
+            if(nums[i] == val){
+                count++; length--;
+                for(int j=i; j<nums.length-1; j++){
+                    nums[j] = nums[j+1];
+                }
+                if (nums[i] == val) i--;
+            }
+        }
+
+        return nums.length-count;
+    }
+
+    /*https://leetcode.com/problems/reverse-string/*/
+    public void reverseString(char[] s) {
+        if(s.length == 1 || s.length == 2)
+            return;
+        else{
+            char c = s[0];
+            s[0] = s[s.length-1];
+            s[s.length-1] = c;
+            reverseString(Arrays.copyOfRange(s, 1, s.length-1));
+        }
+        System.out.println(s.toString());
+    }
+
     //Get state of list of cells after a certain number of days. A cell turns inactive iff both of it's adjacent cells have the same state (both are inactive or b oth are active) on the previous day.
 
     public static List<Integer> cellCompete(int[] states, int days) {
