@@ -1,37 +1,61 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Solution {
+
+    /*https://www.hackerrank.com/challenges/sock-merchant/problem*/
+    public int sockMerchant(int n, int[] ar) {
+        HashMap<Integer, Integer> socks = new HashMap<>();
+        int pairs = 0;
+
+        for (int sockColor : ar) {
+            {
+                if (socks.containsKey(sockColor)) {
+                    int count = socks.get(sockColor);
+                    socks.put(sockColor, ++count);
+                    if (count % 2 == 0) {
+                        pairs++;
+                    }
+
+                } else {
+                    socks.put(sockColor, 1);
+                }
+            }
+        }
+        return pairs;
+    }
 
     /*https://leetcode.com/problems/remove-element/*/
     public int removeElement(int[] nums, int val) {
         int count = 0;
         int length = nums.length;
 
-        for(int i = 0; i< length; i++){
-            if(nums[i] == val){
-                count++; length--;
-                for(int j=i; j<nums.length-1; j++){
-                    nums[j] = nums[j+1];
+        for (int i = 0; i < length; i++) {
+            if (nums[i] == val) {
+                count++;
+                length--;
+                for (int j = i; j < nums.length - 1; j++) {
+                    nums[j] = nums[j + 1];
                 }
                 if (nums[i] == val) i--;
             }
         }
 
-        return nums.length-count;
+        return nums.length - count;
     }
 
     /*https://leetcode.com/problems/reverse-string/*/
     public void reverseString(char[] s) {
-        if(s.length == 1 || s.length == 2)
+        if (s.length == 1 || s.length == 2)
             return;
-        else{
+        else {
             char c = s[0];
-            s[0] = s[s.length-1];
-            s[s.length-1] = c;
-            reverseString(Arrays.copyOfRange(s, 1, s.length-1));
+            s[0] = s[s.length - 1];
+            s[s.length - 1] = c;
+            reverseString(Arrays.copyOfRange(s, 1, s.length - 1));
         }
         System.out.println(s.toString());
     }
@@ -43,13 +67,13 @@ public class Solution {
         for (int day = 0; day < days; day++) {
             List<Integer> previousStates = Arrays.stream(states).boxed().collect(Collectors.toList());
 
-            for (int i = 0; i <= states.length-1; i++) {
-                if( i == 0){
-                    states[i] = previousStates.get(i+1).equals(1)? 1:0;
-                } else if ( i == states.length -1){
-                    states[i] = previousStates.get(i-1).equals(1)? 1:0;
-                } else{
-                    states[i] = (previousStates.get(i-1).equals(0) && previousStates.get(i+1).equals(0)) || (previousStates.get(i-1).equals(1) && previousStates.get(i+1).equals(1))? 0:1;
+            for (int i = 0; i <= states.length - 1; i++) {
+                if (i == 0) {
+                    states[i] = previousStates.get(i + 1).equals(1) ? 1 : 0;
+                } else if (i == states.length - 1) {
+                    states[i] = previousStates.get(i - 1).equals(1) ? 1 : 0;
+                } else {
+                    states[i] = (previousStates.get(i - 1).equals(0) && previousStates.get(i + 1).equals(0)) || (previousStates.get(i - 1).equals(1) && previousStates.get(i + 1).equals(1)) ? 0 : 1;
                 }
             }
 
@@ -65,11 +89,11 @@ public class Solution {
         List<Integer> currentRow = new ArrayList<>(1);
         for (int i = 0; i <= rowIndex; i++) {
             currentRow.clear();
-            for (int j = 0; j < i+1; j++) {
-                if (j==0 || j==i){
+            for (int j = 0; j < i + 1; j++) {
+                if (j == 0 || j == i) {
                     currentRow.add(1);
-                }else {
-                currentRow.add(previousRow.get(j-1) + previousRow.get(j));
+                } else {
+                    currentRow.add(previousRow.get(j - 1) + previousRow.get(j));
                 }
             }
             previousRow = new ArrayList<>(currentRow);
@@ -100,10 +124,11 @@ public class Solution {
 
 
     class DoublyLinkedListNode {
-          int data;
-          DoublyLinkedListNode next;
-          DoublyLinkedListNode prev;
+        int data;
+        DoublyLinkedListNode next;
+        DoublyLinkedListNode prev;
     }
+
     public DoublyLinkedListNode sortedInsert(DoublyLinkedListNode head, int data) {
         boolean inserted = false;
         DoublyLinkedListNode cur = new DoublyLinkedListNode();
@@ -112,8 +137,8 @@ public class Solution {
         cur.prev = head.prev;
         DoublyLinkedListNode temp = new DoublyLinkedListNode();
         temp.data = data;
-        while(null!=cur.next){
-            if(cur.next.data>=data && cur.data<=data){
+        while (null != cur.next) {
+            if (cur.next.data >= data && cur.data <= data) {
                 temp.prev = cur.prev;
                 temp.next = cur;
                 head.prev = temp;
@@ -122,11 +147,11 @@ public class Solution {
             }
             cur = cur.next;
         }
-        if(!inserted){
+        if (!inserted) {
             temp.prev = cur;
             cur.next = temp;
             temp.next = null;
         }
-        return  head;
+        return head;
     }
 }

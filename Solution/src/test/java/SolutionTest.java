@@ -39,4 +39,10 @@ public class SolutionTest {
     public void removeElementReturnsCorrectArray(){
         assertThat(solution.removeElement(new int[] {0,1,2,2,3,0,4,2}, 2), is(5));
     }
+
+    @Test
+    public void sockMerchantReturnsCorrectCountOfPair(){
+        assertThat(solution.sockMerchant(9, new int[]{10, 20, 20, 10, 10, 30, 50, 10, 20}), is(3));
+    }
+
 }
