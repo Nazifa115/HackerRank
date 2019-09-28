@@ -1,10 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.google.common.collect.Maps.newHashMap;
+
 public class Solution {
+
+    /*https://www.hackerrank.com/challenges/permutation-equation/problem*/
+    public int[] permutationEquation(int[] p) {
+        Map<Integer, Integer> indexMap = new HashMap();
+        int[] resultMap = new int[p.length];
+
+        for (int i = 0; i < p.length; i++) {
+            indexMap.put(p[i], i+1);
+        }
+        for (int i = 1; i <= p.length; i++) {
+            int position = indexMap.get(i);
+            resultMap[i-1] = indexMap.get(position);
+        }
+        return resultMap;
+    }
+
+
 
     /*https://www.hackerrank.com/challenges/sock-merchant/problem*/
     public int sockMerchant(int n, int[] ar) {

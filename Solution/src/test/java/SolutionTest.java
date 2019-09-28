@@ -5,6 +5,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SolutionTest {
 
@@ -43,6 +44,13 @@ public class SolutionTest {
     @Test
     public void sockMerchantReturnsCorrectCountOfPair(){
         assertThat(solution.sockMerchant(9, new int[]{10, 20, 20, 10, 10, 30, 50, 10, 20}), is(3));
+    }
+
+    @Test
+    public void permutationEquationReturnsCorrectPermutation(){
+        int[] actual = solution.permutationEquation(new int[]{5,2,1,3,4});
+        int[] expected = new int[]{4,2,5,1,3};
+        assertThat(actual, is(expected));
     }
 
 }
