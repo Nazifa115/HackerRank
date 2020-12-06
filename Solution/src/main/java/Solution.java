@@ -1,9 +1,193 @@
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.google.common.collect.Maps.newHashMap;
+import java.util.stream.IntStream;
 
 public class Solution {
+
+    /*
+     * Complete the 'fetchItemsToDisplay' function below.
+     *
+     * The function is expected to return a STRING_ARRAY.
+     * The function accepts following parameters:
+     *  1. 2D_STRING_ARRAY items
+     *  2. INTEGER sortParameter
+     *  3. INTEGER sortOrder
+     *  4. INTEGER itemPerPage
+     *  5. INTEGER pageNumber
+     */
+
+    public static List<String> fetchItemsToDisplay(List<List<String>> items, int sortParameter, int sortOrder, int pageNumber) {
+
+        List<List<String>> sortedList = new ArrayList<>();
+        if (sortParameter == 0){
+            List<String> itemNames = getItemNames(items);
+            if(sortOrder == 0){
+            Collections.sort(itemNames, new Comparator<String>() {
+
+                @Override
+                public int compare(String o1, String o2) {
+                    return o2.compareTo(o1);
+                }
+            });
+
+            }
+            else {
+                Collections.sort(itemNames, new Comparator<String>() {
+
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return o1.compareTo(o2);
+                    }
+                });
+            }
+        }
+        return sortedList.get(pageNumber);
+    }
+
+    private static List<String> getItemNames(List<List<String>> items) {
+        List<String> itemNames = new ArrayList<>();
+        for (List<String> item: items) {
+            itemNames.add(item.get(0));
+        }
+        return itemNames;
+    }
+
+    private static List<String> getItemRelevances(List<List<String>> items) {
+        List<String> itemNames = new ArrayList<>();
+        for (List<String> item: items) {
+            itemNames.add(item.get(1));
+        }
+        return itemNames;
+    }
+
+    private static List<String> getItemRPrices(List<List<String>> items) {
+        List<String> itemNames = new ArrayList<>();
+        for (List<String> item: items) {
+            itemNames.add(item.get(2));
+        }
+        return itemNames;
+    }
+
+
+
+
+    /*
+     * Complete the 'countPairs' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY numbers
+     *  2. INTEGER k
+     */
+
+
+        /*
+         * Complete the 'countPairs' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER_ARRAY numbers
+         *  2. INTEGER k
+         */
+
+        public static int countPairs(List<Integer> numbers, int k) {
+            Set<Integer> duplicateRemoved = new HashSet<>(numbers);
+            /*List<Integer> uniqueNumbers = new ArrayList<>(duplicateRemoved);
+            Map<Integer, Integer> validPairs = new HashMap<>();
+
+            for (int i = 0; i < uniqueNumbers.size(); i++) {
+                for (int j = i + 1; j < uniqueNumbers .size(); j++){
+                    if (uniqueNumbers.get(i) + k == uniqueNumbers.get(j))
+                        validPairs.put(uniqueNumbers.get(i), uniqueNumbers.get(j));
+                }
+
+
+            }
+            return validPairs.size();*/
+            long matchCount = duplicateRemoved.stream()
+                    .filter(i -> duplicateRemoved.contains(i - k))
+                    .count();
+
+            return (int) matchCount;
+        }
+
+
+   /* public int countPairs(List<Integer> numbers, int k) {
+        Set<Integer> duplicateRemoved = new HashSet<>(numbers);
+        List<Integer> uniqueNumbers = new ArrayList<>(duplicateRemoved);
+        Map<Integer, Integer> validPairs = new HashMap<>();
+
+        for (int i = 0; i < uniqueNumbers.size(); i++) {
+            for (int j = i + 1; j < uniqueNumbers .size(); j++){
+                if (uniqueNumbers.get(i) + k == uniqueNumbers.get(j))
+                    validPairs.put(uniqueNumbers.get(i), uniqueNumbers.get(j));
+            }
+
+
+        }
+       *//* IntStream.range(0,  numbers.size()).forEach(i -> IntStream.range(0,  numbers.size())
+                .filter(j -> i != j && numbers.get(i) + k == numbers.get(j))
+                .forEach(j -> duplicateRemoved.add(new IntPair(numbers.get(i), numbers.get(j)))));*//*
+
+return uniqueNumbers.size();
+    }*/
+
+
+    /*
+     * Complete the 'winner' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. STRING erica
+     *  2. STRING bob
+     */
+
+    public static String winner(String erica, String bob) {
+        int scoreErica = 0;
+        int scoreBob = 0;
+        char[] ericaCharArray = erica.toCharArray();
+        char[] bobCharArray = bob.toCharArray();
+
+        for (int i=0 ; i<ericaCharArray.length; i++) {
+            scoreErica+=getScore(ericaCharArray[i]);
+            scoreBob+=getScore(bobCharArray[i]);
+        }
+        if(scoreErica == scoreBob){
+            return "Tie";
+        }else if(scoreErica > scoreBob){
+            return "Erica";
+        }else {
+            return "Bob";
+        }
+    }
+
+    private static int getScore(char c) {
+        switch (c){
+            case 'E':
+                return 1;
+            case 'M':
+                return 3;
+            case 'H':
+                return 5;
+
+        }
+        return 0;
+    }
+
+    /*
+     * Complete the 'addNumbers' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. FLOAT a
+     *  2. FLOAT b
+     */
+
+    public static int addNumbers(float a, float b) {
+        return (int) Math.floor(a+b);
+    }
+    /*https://www.hackerrank.com/contests/hackerrank-women-technologists-codesprint-2019/challenges/signal-classification*/
+
 
     /*https://www.hackerrank.com/challenges/permutation-equation/problem*/
     public int[] permutationEquation(int[] p) {
@@ -136,6 +320,64 @@ public class Solution {
         }
 
         throw new IllegalArgumentException("No closing parenthesis :(");
+    }
+
+    public List<Integer> classifySignals(List<Integer> freq_standard, List<Integer> freq_signals) {
+        List<Integer> resultList = new ArrayList();
+        List<Integer> sortedFrequencyStandards = new ArrayList(freq_standard);
+        Collections.sort(sortedFrequencyStandards);
+        Map<Integer, Integer> indices = new HashMap();
+        for (int i = 0; i < freq_standard.size(); i++) {
+            indices.put(freq_standard.get(i), i+1);
+        }
+
+        for (Integer freq_signal : freq_signals) {
+            Integer index = Collections.binarySearch(sortedFrequencyStandards, freq_signal);
+            index = index>=0? index : Math.abs(index+1);
+            if (index == sortedFrequencyStandards.size()){
+                resultList.add(index);
+            }
+            else {
+                if(index != 0 && Math.abs(sortedFrequencyStandards.get(index-1)-freq_signal) < Math.abs(sortedFrequencyStandards.get(index)-freq_signal)){
+                    index = index-1;
+                }
+                resultList.add(indices.get(sortedFrequencyStandards.get(index)));
+            }
+        }
+        return resultList;
+    }
+
+    public static int finalInstances(int instances, List<Integer> averageUtil) {
+        Integer resultingInstances = instances;
+        for (int i = 0; i<averageUtil.size(); i++) {
+            Integer averageUtilization = averageUtil.get(i);
+            if(averageUtilization <25 && resultingInstances > 1){
+                resultingInstances = (int)Math.ceil(resultingInstances/2.00);
+                i+=10;
+            }else if (averageUtilization > 60 && resultingInstances <= (2*Math.pow(10,8))){
+                resultingInstances = resultingInstances*2;
+                i+=10;
+            }
+        }
+        return resultingInstances;
+}
+
+
+    public static void fizzBuzz(int n) {
+
+        String result = "";
+        if(n%3 == 0){
+            if(n%5 == 0){
+                result = "FizzBuzz";
+            }else{
+                result = "Fizz";
+            }
+        }else if(n%5 == 0){
+            result = "Buzz";
+        }else{
+            result = String.valueOf(n);
+        }
+
     }
 
 
