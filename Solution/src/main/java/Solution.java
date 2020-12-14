@@ -412,4 +412,23 @@ return uniqueNumbers.size();
         }
         return head;
     }
+
+    /*https://leetcode.com/problems/flood-fill/
+*/
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        int prevColor = image[sr][sc];
+        return floodFillHelper(image, sr, sc, prevColor, newColor);
+    }
+
+    private int[][] floodFillHelper(int[][] image, int sr, int sc, int prevColor, int newColor) {
+        if(((0 <= sr && sr < image.length) && (0 <= sc && sc < image[0].length) && image[sr][sc] == prevColor && image[sr][sc] != newColor)){
+            image[sr][sc] =  newColor;
+            floodFillHelper(image, sr, sc-1, prevColor, newColor);
+            floodFillHelper(image, sr-1, sc, prevColor, newColor);
+            floodFillHelper(image, sr, sc+1, prevColor, newColor);
+            floodFillHelper(image, sr+1, sc, prevColor, newColor);
+        }
+
+        return image;
+    }
 }
