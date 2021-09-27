@@ -1,6 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 public class Solution {
 
@@ -391,25 +391,25 @@ return uniqueNumbers.size();
         boolean inserted = false;
         DoublyLinkedListNode cur = new DoublyLinkedListNode();
         cur.data = head.data;
-        cur.next = head.next;
-        cur.prev = head.prev;
-        DoublyLinkedListNode temp = new DoublyLinkedListNode();
-        temp.data = data;
-        while (null != cur.next) {
-            if (cur.next.data >= data && cur.data <= data) {
-                temp.prev = cur.prev;
-                temp.next = cur;
-                head.prev = temp;
-                cur.prev.next = temp;
-                inserted = true;
-            }
-            cur = cur.next;
-        }
-        if (!inserted) {
-            temp.prev = cur;
-            cur.next = temp;
-            temp.next = null;
-        }
+//        cur.next = head.next;
+//        cur.prev = head.prev;
+//        DoublyLinkedListNode temp = new DoublyLinkedListNode();
+//        temp.data = data;
+//        while (null != cur.next) {
+//            if (cur.next.data >= data && cur.data <= data) {
+//                temp.prev = cur.prev;
+//                temp.next = cur;
+//                head.prev = temp;
+//                cur.prev.next = temp;
+//                inserted = true;
+//            }
+//            cur = cur.next;
+//        }
+//        if (!inserted) {
+//            temp.prev = cur;
+//            cur.next = temp;
+//            temp.next = null;
+//        }
         return head;
     }
 
@@ -431,4 +431,84 @@ return uniqueNumbers.size();
 
         return image;
     }
+
+    public static int connectedSum(int n, List<String> edges) {
+        Integer[][] adjacencyMatrix = new Integer[n][n];
+        for (String s:edges) {
+            int startingNode = Integer.valueOf(s.split(" ")[0]);
+            int endingNode = Integer.valueOf(s.split(" ")[1]);
+            System.out.println(startingNode+ "," + endingNode);
+            adjacencyMatrix[startingNode][endingNode] = 1;
+        }
+
+        List<Integer> sizeOfIsolatedSets = countIsolatedSets(adjacencyMatrix);
+        int totalCost = 0;
+        for (Integer cost:sizeOfIsolatedSets) {
+            totalCost+=Math.ceil(Math.sqrt(cost));
+        }
+        return totalCost;
+    }
+
+    private static List<Integer> countIsolatedSets(Integer[][] adjacencyMatrix) {
+        ArrayList isolatedSets  = new ArrayList();
+        for (int i = 0; i<adjacencyMatrix.length; i++){
+            for (int j = 0; j<adjacencyMatrix.length; j++){
+                if(adjacencyMatrix[i][j] == 1){
+                    isolatedSets.add(dfs(adjacencyMatrix, i, j, 0));
+                }
+
+            }
+        }
+        return isolatedSets;
+    }
+
+    private static Integer dfs(Integer[][] adjacencyMatrix, int i, int j, int count) {
+        if(i<0 || i> adjacencyMatrix.length || j<0 || j>adjacencyMatrix.length)
+            return 0;
+        count++;
+        dfs(adjacencyMatrix, i-1, j-1, count);
+        dfs(adjacencyMatrix, i-1, j, count);
+        dfs(adjacencyMatrix, i-1, j+1, count);
+        dfs(adjacencyMatrix, i, j-1, count);
+        dfs(adjacencyMatrix, i, j, count);
+        dfs(adjacencyMatrix, i, j+1, count);
+        dfs(adjacencyMatrix, i+1, j-1, count);
+        dfs(adjacencyMatrix, i+1, j, count);
+        dfs(adjacencyMatrix, i+1, j+1, count);
+        return count;
+    }
+
+
+    public long storage(int n, int m, List<Integer> h, List<Integer> v) {
+        long area = 1;
+        for(int i=1; i<=n;){
+            int length = 1;
+            int width = 1;
+            while (h.contains(i)){
+                i++;
+                length++;
+            }
+            for(int j=1; j<=m;){
+                while(v.contains(j)){
+                    j++;
+                    width++;
+                }
+            if(length*width > area)
+                area = length*width;
+            j++;
+            }
+            i++;
+        }
+        return area;
+    }
+
+    public int addDigits(int n) {
+        int divisor = 10;
+        int sum = 0;
+        for(int i = n; i>0 ; i=i/divisor){
+            sum =sum+(i%divisor);
+        }
+            return sum;
+    }
+
 }

@@ -1,12 +1,12 @@
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SolutionTest {
 
@@ -18,16 +18,12 @@ public class SolutionTest {
 
         List<Integer> actual = solution.getRow(2);
         assertThat(actual.get(0), is(1));
-        /*actual = solution.getRow(2);
-        assertThat(actual.size(), is(3));
-        actual = solution.getRow(4);
-        assertThat(actual.get(2), is(6));*/
     }
 
-    @Test
-    public  void sortedInsertReturnsPointerToSortedDoublyLinkedList(){
-        Solution.DoublyLinkedListNode result = solution.sortedInsert(null, 0);
-    }
+//    @Test
+//    public  void sortedInsertReturnsPointerToSortedDoublyLinkedList(){
+//        Solution.DoublyLinkedListNode result = solution.sortedInsert(null, 0);
+//    }
 
     @Test
     public void reverseStringReturnsCharArrayInReverse(){
@@ -81,5 +77,15 @@ public class SolutionTest {
     public void  floodfillTest(){
         int[][] image = {{1,1,1},{1,1,0},{1,0,1}};
         solution.floodFill(image, 1, 1, 2);
+    }
+
+    @Test
+    public void storageTest(){
+        solution.storage(6,6,newArrayList(4),newArrayList(2));
+    }
+
+    @Test
+    public void addTwoDigitsTest(){
+        assertEquals(24,solution.addDigits(2985));
     }
 }
