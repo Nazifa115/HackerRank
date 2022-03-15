@@ -510,5 +510,162 @@ return uniqueNumbers.size();
         }
             return sum;
     }
+    public int[] twoSum(int[] nums, int target) {
+
+        int[] result = new int[2];
+        HashMap<Integer, Integer> sum = new HashMap();
+
+        for(int i=0; i<nums.length; i++){
+            sum.put(target-nums[i], i);
+        }
+
+        for(int i=0; i<nums.length; i++){
+            if(sum.containsKey(nums[i]) && sum.get(nums[i])!=i){
+                result[0] = i;
+                result[1] = sum.get(nums[i]);
+                break;
+            }
+
+        }
+        return result;
+    }
+
+    public class ListNode {
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+  }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int len1 = 0;
+        int len2 = 0;
+        ListNode cur = l1;
+        for(len1 = 1; cur!= null; len1++){
+            cur = cur.next;
+        }
+        cur = l2;
+        for(len2 = 1; cur!=null; len2++){
+            cur = cur.next;
+        }
+
+        int length = len1>len2? len1: len2;
+        int carry = 0;
+        int sum = 0;
+        ListNode cur1 = l1;
+        ListNode cur2 = l2;
+        ListNode sumListHead = new ListNode();
+        while(length > 0){
+            sum = ((null!= cur1? cur1.val:0) + (null!=cur2? cur2.val:0) + carry) % 10;
+            ListNode curSum = new ListNode(sum);
+            curSum.next = null;
+            sumListHead.val = curSum.val;
+            sumListHead.next = null;
+
+            carry = ((null!= cur1? cur1.val:0) + (null!=cur2? cur2.val:0))/10;
+            length --;
+
+        }
+        return null;
+    }
+
+    public int[] sortedSquares(int[] nums) {
+        int p = 0; int q = 0;
+        int[] results = new int[nums.length];
+        while(p<nums.length && Math.abs(nums[p]) > Math.abs(nums[p+1])){
+                p++;
+            }
+        q= p==nums.length? p:p+1;
+        for (int j = 0; j < nums.length; j++) {
+            if(p<0 || (q<nums.length &&  Math.abs(nums[p]) >= Math.abs(nums[q]))){
+                results[j] = nums[q]*nums[q];
+                q++;
+            }
+            else if ( q >= nums.length || (p>=0 && Math.abs(nums[p])<=Math.abs(nums[q]))){
+                results[j] = nums[p]*nums[p];
+                p--;
+            }
+        }
+        return results;
+    }
+
+    public int maxProfit(int[] prices) {
+        if(prices.length <= 1){
+            return 0;
+        }
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int max_index = 0;
+        int difference = 0;
+        int left = 0, right = 0;
+        while(left < prices.length && right < prices.length){
+            if(prices[left] < min){
+                min = prices[left];
+                right = left+1;
+                if (max_index < right){
+                    max = prices[right];
+                for (int i=right; i<prices.length; i++){
+                    if(prices[i] >= max && prices[i] > prices[left]){
+                        max = prices[i];
+                        max_index = i;
+                        if(prices[i] - prices[left] > difference){
+                            difference = prices[i] - prices[left];
+                        }
+                    }}
+                }
+                else if(prices[max_index] - prices[left] > difference){
+                    difference = prices[max_index] - prices[left];
+                }
+            }
+                left+=1;
+                right = left+1;
+
+        }
+        return difference;
+    }
+
+    public boolean containsDuplicate(int[] nums) {
+        HashMap<Integer, Integer> numbers = new HashMap<Integer,Integer>();
+        for(int i = 0; i<= nums.length; i++){
+            if(numbers.containsKey(nums[i])){
+                return false;
+            }
+            else{
+                numbers.put(nums[i], 1);
+            }
+        }
+        return true;
+    }
+
+    public static List<Integer> sleepSort(int[] nums){
+        ArrayList<Integer> output = new ArrayList<>();
+        for (int i = 0; i <nums.length; i++) {
+                SleepSortRun sleeper = new SleepSortRun(nums[i], output);
+                new Thread(sleeper).start();
+        }
+
+        return output;
+    }
+    static class SleepSortRun implements Runnable{
+        int val;
+        ArrayList<Integer> result;
+
+        public SleepSortRun(int num, ArrayList<Integer> output) {
+            this.val = num;
+            this.result = output;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000*val);
+                System.out.println("Print inside sleeping thread: " + val);
+                result.add(val);
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 }
