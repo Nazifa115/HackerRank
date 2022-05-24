@@ -12,7 +12,7 @@ class FindMaximum
         return x < y ? x : y;
     }
 
-    /* For a given array arr[], returns the maximum j-i such that 
+    /* For a given array arr[], returns the maximum j-i such that
        arr[j] > arr[i] */
     int maxIndexDiff(int[] arr, int n)
     {
@@ -21,20 +21,20 @@ class FindMaximum
 
         int[] RMax = new int[n];
         int[] LMin = new int[n];
-  
-        /* Construct LMin[] such that LMin[i] stores the minimum value 
+
+        /* Construct LMin[] such that LMin[i] stores the minimum value
            from (arr[0], arr[1], ... arr[i]) */
         LMin[0] = arr[0];
         for (i = 1; i < n; ++i)
-            LMin[i] = min(arr[i], LMin[i - 1]); 
-  
-        /* Construct RMax[] such that RMax[j] stores the maximum value 
+            LMin[i] = min(arr[i], LMin[i - 1]);
+
+        /* Construct RMax[] such that RMax[j] stores the maximum value
            from (arr[j], arr[j+1], ..arr[n-1]) */
         RMax[n - 1] = arr[n - 1];
         for (j = n - 2; j >= 0; --j)
-            RMax[j] = max(arr[j], RMax[j + 1]); 
-  
-        /* Traverse both arrays from left to right to find optimum j - i 
+            RMax[j] = max(arr[j], RMax[j + 1]);
+
+        /* Traverse both arrays from left to right to find optimum j - i
            This process is similar to merge() of MergeSort */
         i = 0; j = 0; maxDiff = -1;
         while (j < n && i < n)
@@ -56,10 +56,10 @@ class FindMaximum
     {
         FindMaximum max = new FindMaximum();
         //int arr[] = {9, 2, 3, 4, 5, 6, 7, 8, 18, 0};
-        int arr[] = {34, 8, 10, 3, 2, 80, 30, 33, 1};
+        int[] arr = {34, 8, 10, 3, 2, 80, 30, 33, 1};
         //int arr[] = {36, 35, 43, 3, 2, 1};
         int n = arr.length;
         int maxDiff = max.maxIndexDiff(arr, n);
         System.out.println(maxDiff);
     }
-} 
+}

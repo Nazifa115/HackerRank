@@ -8,8 +8,8 @@ import java.util.LinkedList;
 // This class represents a directed graph using adjacency list representation
 class Graph
 {
-    private int V; // No. of vertices
-    private LinkedList<Integer> adjacent[]; //Adjacency Lists
+    private final int V; // No. of vertices
+    private final LinkedList<Integer>[] adjacent; //Adjacency Lists
 
     // Constructor
     Graph(int v)
@@ -30,7 +30,7 @@ class Graph
     void BFS(Graph g, int s)
     {
         // Mark all the vertices as not visited(By default set as false)
-        boolean visited[] = new boolean[V];
+        boolean[] visited = new boolean[V];
 
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -62,7 +62,7 @@ class Graph
     }
 
     // Driver method to
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         Graph g = new Graph(4);
 

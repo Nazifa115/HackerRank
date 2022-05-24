@@ -19,19 +19,18 @@ public class Solution {
     public static List<String> fetchItemsToDisplay(List<List<String>> items, int sortParameter, int sortOrder, int pageNumber) {
 
         List<List<String>> sortedList = new ArrayList<>();
-        if (sortParameter == 0){
+        if (sortParameter == 0) {
             List<String> itemNames = getItemNames(items);
-            if(sortOrder == 0){
-            Collections.sort(itemNames, new Comparator<String>() {
+            if (sortOrder == 0) {
+                Collections.sort(itemNames, new Comparator<String>() {
 
-                @Override
-                public int compare(String o1, String o2) {
-                    return o2.compareTo(o1);
-                }
-            });
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return o2.compareTo(o1);
+                    }
+                });
 
-            }
-            else {
+            } else {
                 Collections.sort(itemNames, new Comparator<String>() {
 
                     @Override
@@ -46,7 +45,7 @@ public class Solution {
 
     private static List<String> getItemNames(List<List<String>> items) {
         List<String> itemNames = new ArrayList<>();
-        for (List<String> item: items) {
+        for (List<String> item : items) {
             itemNames.add(item.get(0));
         }
         return itemNames;
@@ -54,7 +53,7 @@ public class Solution {
 
     private static List<String> getItemRelevances(List<List<String>> items) {
         List<String> itemNames = new ArrayList<>();
-        for (List<String> item: items) {
+        for (List<String> item : items) {
             itemNames.add(item.get(1));
         }
         return itemNames;
@@ -62,7 +61,7 @@ public class Solution {
 
     private static List<String> getItemRPrices(List<List<String>> items) {
         List<String> itemNames = new ArrayList<>();
-        for (List<String> item: items) {
+        for (List<String> item : items) {
             itemNames.add(item.get(2));
         }
         return itemNames;
@@ -81,17 +80,17 @@ public class Solution {
      */
 
 
-        /*
-         * Complete the 'countPairs' function below.
-         *
-         * The function is expected to return an INTEGER.
-         * The function accepts following parameters:
-         *  1. INTEGER_ARRAY numbers
-         *  2. INTEGER k
-         */
+    /*
+     * Complete the 'countPairs' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY numbers
+     *  2. INTEGER k
+     */
 
-        public static int countPairs(List<Integer> numbers, int k) {
-            Set<Integer> duplicateRemoved = new HashSet<>(numbers);
+    public static int countPairs(List<Integer> numbers, int k) {
+        Set<Integer> duplicateRemoved = new HashSet<>(numbers);
             /*List<Integer> uniqueNumbers = new ArrayList<>(duplicateRemoved);
             Map<Integer, Integer> validPairs = new HashMap<>();
 
@@ -104,12 +103,12 @@ public class Solution {
 
             }
             return validPairs.size();*/
-            long matchCount = duplicateRemoved.stream()
-                    .filter(i -> duplicateRemoved.contains(i - k))
-                    .count();
+        long matchCount = duplicateRemoved.stream()
+                .filter(i -> duplicateRemoved.contains(i - k))
+                .count();
 
-            return (int) matchCount;
-        }
+        return (int) matchCount;
+    }
 
 
    /* public int countPairs(List<Integer> numbers, int k) {
@@ -148,21 +147,21 @@ return uniqueNumbers.size();
         char[] ericaCharArray = erica.toCharArray();
         char[] bobCharArray = bob.toCharArray();
 
-        for (int i=0 ; i<ericaCharArray.length; i++) {
-            scoreErica+=getScore(ericaCharArray[i]);
-            scoreBob+=getScore(bobCharArray[i]);
+        for (int i = 0; i < ericaCharArray.length; i++) {
+            scoreErica += getScore(ericaCharArray[i]);
+            scoreBob += getScore(bobCharArray[i]);
         }
-        if(scoreErica == scoreBob){
+        if (scoreErica == scoreBob) {
             return "Tie";
-        }else if(scoreErica > scoreBob){
+        } else if (scoreErica > scoreBob) {
             return "Erica";
-        }else {
+        } else {
             return "Bob";
         }
     }
 
     private static int getScore(char c) {
-        switch (c){
+        switch (c) {
             case 'E':
                 return 1;
             case 'M':
@@ -184,7 +183,7 @@ return uniqueNumbers.size();
      */
 
     public static int addNumbers(float a, float b) {
-        return (int) Math.floor(a+b);
+        return (int) Math.floor(a + b);
     }
     /*https://www.hackerrank.com/contests/hackerrank-women-technologists-codesprint-2019/challenges/signal-classification*/
 
@@ -195,15 +194,14 @@ return uniqueNumbers.size();
         int[] resultMap = new int[p.length];
 
         for (int i = 0; i < p.length; i++) {
-            indexMap.put(p[i], i+1);
+            indexMap.put(p[i], i + 1);
         }
         for (int i = 1; i <= p.length; i++) {
             int position = indexMap.get(i);
-            resultMap[i-1] = indexMap.get(position);
+            resultMap[i - 1] = indexMap.get(position);
         }
         return resultMap;
     }
-
 
 
     /*https://www.hackerrank.com/challenges/sock-merchant/problem*/
@@ -328,18 +326,17 @@ return uniqueNumbers.size();
         Collections.sort(sortedFrequencyStandards);
         Map<Integer, Integer> indices = new HashMap();
         for (int i = 0; i < freq_standard.size(); i++) {
-            indices.put(freq_standard.get(i), i+1);
+            indices.put(freq_standard.get(i), i + 1);
         }
 
         for (Integer freq_signal : freq_signals) {
             Integer index = Collections.binarySearch(sortedFrequencyStandards, freq_signal);
-            index = index>=0? index : Math.abs(index+1);
-            if (index == sortedFrequencyStandards.size()){
+            index = index >= 0 ? index : Math.abs(index + 1);
+            if (index == sortedFrequencyStandards.size()) {
                 resultList.add(index);
-            }
-            else {
-                if(index != 0 && Math.abs(sortedFrequencyStandards.get(index-1)-freq_signal) < Math.abs(sortedFrequencyStandards.get(index)-freq_signal)){
-                    index = index-1;
+            } else {
+                if (index != 0 && Math.abs(sortedFrequencyStandards.get(index - 1) - freq_signal) < Math.abs(sortedFrequencyStandards.get(index) - freq_signal)) {
+                    index = index - 1;
                 }
                 resultList.add(indices.get(sortedFrequencyStandards.get(index)));
             }
@@ -349,32 +346,32 @@ return uniqueNumbers.size();
 
     public static int finalInstances(int instances, List<Integer> averageUtil) {
         Integer resultingInstances = instances;
-        for (int i = 0; i<averageUtil.size(); i++) {
+        for (int i = 0; i < averageUtil.size(); i++) {
             Integer averageUtilization = averageUtil.get(i);
-            if(averageUtilization <25 && resultingInstances > 1){
-                resultingInstances = (int)Math.ceil(resultingInstances/2.00);
-                i+=10;
-            }else if (averageUtilization > 60 && resultingInstances <= (2*Math.pow(10,8))){
-                resultingInstances = resultingInstances*2;
-                i+=10;
+            if (averageUtilization < 25 && resultingInstances > 1) {
+                resultingInstances = (int) Math.ceil(resultingInstances / 2.00);
+                i += 10;
+            } else if (averageUtilization > 60 && resultingInstances <= (2 * Math.pow(10, 8))) {
+                resultingInstances = resultingInstances * 2;
+                i += 10;
             }
         }
         return resultingInstances;
-}
+    }
 
 
     public static void fizzBuzz(int n) {
 
         String result = "";
-        if(n%3 == 0){
-            if(n%5 == 0){
+        if (n % 3 == 0) {
+            if (n % 5 == 0) {
                 result = "FizzBuzz";
-            }else{
+            } else {
                 result = "Fizz";
             }
-        }else if(n%5 == 0){
+        } else if (n % 5 == 0) {
             result = "Buzz";
-        }else{
+        } else {
             result = String.valueOf(n);
         }
 
@@ -414,19 +411,19 @@ return uniqueNumbers.size();
     }
 
     /*https://leetcode.com/problems/flood-fill/
-*/
+     */
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
         int prevColor = image[sr][sc];
         return floodFillHelper(image, sr, sc, prevColor, newColor);
     }
 
     private int[][] floodFillHelper(int[][] image, int sr, int sc, int prevColor, int newColor) {
-        if(((0 <= sr && sr < image.length) && (0 <= sc && sc < image[0].length) && image[sr][sc] == prevColor && image[sr][sc] != newColor)){
-            image[sr][sc] =  newColor;
-            floodFillHelper(image, sr, sc-1, prevColor, newColor);
-            floodFillHelper(image, sr-1, sc, prevColor, newColor);
-            floodFillHelper(image, sr, sc+1, prevColor, newColor);
-            floodFillHelper(image, sr+1, sc, prevColor, newColor);
+        if (((0 <= sr && sr < image.length) && (0 <= sc && sc < image[0].length) && image[sr][sc] == prevColor && image[sr][sc] != newColor)) {
+            image[sr][sc] = newColor;
+            floodFillHelper(image, sr, sc - 1, prevColor, newColor);
+            floodFillHelper(image, sr - 1, sc, prevColor, newColor);
+            floodFillHelper(image, sr, sc + 1, prevColor, newColor);
+            floodFillHelper(image, sr + 1, sc, prevColor, newColor);
         }
 
         return image;
@@ -434,26 +431,26 @@ return uniqueNumbers.size();
 
     public static int connectedSum(int n, List<String> edges) {
         Integer[][] adjacencyMatrix = new Integer[n][n];
-        for (String s:edges) {
+        for (String s : edges) {
             int startingNode = Integer.valueOf(s.split(" ")[0]);
             int endingNode = Integer.valueOf(s.split(" ")[1]);
-            System.out.println(startingNode+ "," + endingNode);
+            System.out.println(startingNode + "," + endingNode);
             adjacencyMatrix[startingNode][endingNode] = 1;
         }
 
         List<Integer> sizeOfIsolatedSets = countIsolatedSets(adjacencyMatrix);
         int totalCost = 0;
-        for (Integer cost:sizeOfIsolatedSets) {
-            totalCost+=Math.ceil(Math.sqrt(cost));
+        for (Integer cost : sizeOfIsolatedSets) {
+            totalCost += Math.ceil(Math.sqrt(cost));
         }
         return totalCost;
     }
 
     private static List<Integer> countIsolatedSets(Integer[][] adjacencyMatrix) {
-        ArrayList isolatedSets  = new ArrayList();
-        for (int i = 0; i<adjacencyMatrix.length; i++){
-            for (int j = 0; j<adjacencyMatrix.length; j++){
-                if(adjacencyMatrix[i][j] == 1){
+        ArrayList isolatedSets = new ArrayList();
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            for (int j = 0; j < adjacencyMatrix.length; j++) {
+                if (adjacencyMatrix[i][j] == 1) {
                     isolatedSets.add(dfs(adjacencyMatrix, i, j, 0));
                 }
 
@@ -463,39 +460,39 @@ return uniqueNumbers.size();
     }
 
     private static Integer dfs(Integer[][] adjacencyMatrix, int i, int j, int count) {
-        if(i<0 || i> adjacencyMatrix.length || j<0 || j>adjacencyMatrix.length)
+        if (i < 0 || i > adjacencyMatrix.length || j < 0 || j > adjacencyMatrix.length)
             return 0;
         count++;
-        dfs(adjacencyMatrix, i-1, j-1, count);
-        dfs(adjacencyMatrix, i-1, j, count);
-        dfs(adjacencyMatrix, i-1, j+1, count);
-        dfs(adjacencyMatrix, i, j-1, count);
+        dfs(adjacencyMatrix, i - 1, j - 1, count);
+        dfs(adjacencyMatrix, i - 1, j, count);
+        dfs(adjacencyMatrix, i - 1, j + 1, count);
+        dfs(adjacencyMatrix, i, j - 1, count);
         dfs(adjacencyMatrix, i, j, count);
-        dfs(adjacencyMatrix, i, j+1, count);
-        dfs(adjacencyMatrix, i+1, j-1, count);
-        dfs(adjacencyMatrix, i+1, j, count);
-        dfs(adjacencyMatrix, i+1, j+1, count);
+        dfs(adjacencyMatrix, i, j + 1, count);
+        dfs(adjacencyMatrix, i + 1, j - 1, count);
+        dfs(adjacencyMatrix, i + 1, j, count);
+        dfs(adjacencyMatrix, i + 1, j + 1, count);
         return count;
     }
 
 
     public long storage(int n, int m, List<Integer> h, List<Integer> v) {
         long area = 1;
-        for(int i=1; i<=n;){
+        for (int i = 1; i <= n; ) {
             int length = 1;
             int width = 1;
-            while (h.contains(i)){
+            while (h.contains(i)) {
                 i++;
                 length++;
             }
-            for(int j=1; j<=m;){
-                while(v.contains(j)){
+            for (int j = 1; j <= m; ) {
+                while (v.contains(j)) {
                     j++;
                     width++;
                 }
-            if(length*width > area)
-                area = length*width;
-            j++;
+                if (length * width > area)
+                    area = length * width;
+                j++;
             }
             i++;
         }
@@ -505,22 +502,23 @@ return uniqueNumbers.size();
     public int addDigits(int n) {
         int divisor = 10;
         int sum = 0;
-        for(int i = n; i>0 ; i=i/divisor){
-            sum =sum+(i%divisor);
+        for (int i = n; i > 0; i = i / divisor) {
+            sum = sum + (i % divisor);
         }
-            return sum;
+        return sum;
     }
+
     public int[] twoSum(int[] nums, int target) {
 
         int[] result = new int[2];
         HashMap<Integer, Integer> sum = new HashMap();
 
-        for(int i=0; i<nums.length; i++){
-            sum.put(target-nums[i], i);
+        for (int i = 0; i < nums.length; i++) {
+            sum.put(target - nums[i], i);
         }
 
-        for(int i=0; i<nums.length; i++){
-            if(sum.containsKey(nums[i]) && sum.get(nums[i])!=i){
+        for (int i = 0; i < nums.length; i++) {
+            if (sum.containsKey(nums[i]) && sum.get(nums[i]) != i) {
                 result[0] = i;
                 result[1] = sum.get(nums[i]);
                 break;
@@ -531,59 +529,68 @@ return uniqueNumbers.size();
     }
 
     public class ListNode {
-      int val;
-      ListNode next;
-      ListNode() {}
-      ListNode(int val) { this.val = val; }
-      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-  }
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int len1 = 0;
         int len2 = 0;
         ListNode cur = l1;
-        for(len1 = 1; cur!= null; len1++){
+        for (len1 = 1; cur != null; len1++) {
             cur = cur.next;
         }
         cur = l2;
-        for(len2 = 1; cur!=null; len2++){
+        for (len2 = 1; cur != null; len2++) {
             cur = cur.next;
         }
 
-        int length = len1>len2? len1: len2;
+        int length = len1 > len2 ? len1 : len2;
         int carry = 0;
         int sum = 0;
         ListNode cur1 = l1;
         ListNode cur2 = l2;
         ListNode sumListHead = new ListNode();
-        while(length > 0){
-            sum = ((null!= cur1? cur1.val:0) + (null!=cur2? cur2.val:0) + carry) % 10;
+        while (length > 0) {
+            sum = ((null != cur1 ? cur1.val : 0) + (null != cur2 ? cur2.val : 0) + carry) % 10;
             ListNode curSum = new ListNode(sum);
             curSum.next = null;
             sumListHead.val = curSum.val;
             sumListHead.next = null;
 
-            carry = ((null!= cur1? cur1.val:0) + (null!=cur2? cur2.val:0))/10;
-            length --;
+            carry = ((null != cur1 ? cur1.val : 0) + (null != cur2 ? cur2.val : 0)) / 10;
+            length--;
 
         }
         return null;
     }
 
     public int[] sortedSquares(int[] nums) {
-        int p = 0; int q = 0;
+        int p = 0;
+        int q = 0;
         int[] results = new int[nums.length];
-        while(p<nums.length && Math.abs(nums[p]) > Math.abs(nums[p+1])){
-                p++;
-            }
-        q= p==nums.length? p:p+1;
+        while (p < nums.length && Math.abs(nums[p]) > Math.abs(nums[p + 1])) {
+            p++;
+        }
+        q = p == nums.length ? p : p + 1;
         for (int j = 0; j < nums.length; j++) {
-            if(p<0 || (q<nums.length &&  Math.abs(nums[p]) >= Math.abs(nums[q]))){
-                results[j] = nums[q]*nums[q];
+            if (p < 0 || (q < nums.length && Math.abs(nums[p]) >= Math.abs(nums[q]))) {
+                results[j] = nums[q] * nums[q];
                 q++;
-            }
-            else if ( q >= nums.length || (p>=0 && Math.abs(nums[p])<=Math.abs(nums[q]))){
-                results[j] = nums[p]*nums[p];
+            } else if (q >= nums.length || (p >= 0 && Math.abs(nums[p]) <= Math.abs(nums[q]))) {
+                results[j] = nums[p] * nums[p];
                 p--;
             }
         }
@@ -591,7 +598,7 @@ return uniqueNumbers.size();
     }
 
     public int maxProfit(int[] prices) {
-        if(prices.length <= 1){
+        if (prices.length <= 1) {
             return 0;
         }
         int min = Integer.MAX_VALUE;
@@ -599,55 +606,55 @@ return uniqueNumbers.size();
         int max_index = 0;
         int difference = 0;
         int left = 0, right = 0;
-        while(left < prices.length && right < prices.length){
-            if(prices[left] < min){
+        while (left < prices.length && right < prices.length) {
+            if (prices[left] < min) {
                 min = prices[left];
-                right = left+1;
-                if (max_index < right){
+                right = left + 1;
+                if (max_index < right) {
                     max = prices[right];
-                for (int i=right; i<prices.length; i++){
-                    if(prices[i] >= max && prices[i] > prices[left]){
-                        max = prices[i];
-                        max_index = i;
-                        if(prices[i] - prices[left] > difference){
-                            difference = prices[i] - prices[left];
+                    for (int i = right; i < prices.length; i++) {
+                        if (prices[i] >= max && prices[i] > prices[left]) {
+                            max = prices[i];
+                            max_index = i;
+                            if (prices[i] - prices[left] > difference) {
+                                difference = prices[i] - prices[left];
+                            }
                         }
-                    }}
-                }
-                else if(prices[max_index] - prices[left] > difference){
+                    }
+                } else if (prices[max_index] - prices[left] > difference) {
                     difference = prices[max_index] - prices[left];
                 }
             }
-                left+=1;
-                right = left+1;
+            left += 1;
+            right = left + 1;
 
         }
         return difference;
     }
 
     public boolean containsDuplicate(int[] nums) {
-        HashMap<Integer, Integer> numbers = new HashMap<Integer,Integer>();
-        for(int i = 0; i<= nums.length; i++){
-            if(numbers.containsKey(nums[i])){
+        HashMap<Integer, Integer> numbers = new HashMap<Integer, Integer>();
+        for (int i = 0; i <= nums.length; i++) {
+            if (numbers.containsKey(nums[i])) {
                 return false;
-            }
-            else{
+            } else {
                 numbers.put(nums[i], 1);
             }
         }
         return true;
     }
 
-    public static List<Integer> sleepSort(int[] nums){
+    public static List<Integer> sleepSort(int[] nums) {
         ArrayList<Integer> output = new ArrayList<>();
-        for (int i = 0; i <nums.length; i++) {
-                SleepSortRun sleeper = new SleepSortRun(nums[i], output);
-                new Thread(sleeper).start();
+        for (int i = 0; i < nums.length; i++) {
+            SleepSortRun sleeper = new SleepSortRun(nums[i], output);
+            new Thread(sleeper).start();
         }
 
         return output;
     }
-    static class SleepSortRun implements Runnable{
+
+    static class SleepSortRun implements Runnable {
         int val;
         ArrayList<Integer> result;
 
@@ -659,13 +666,295 @@ return uniqueNumbers.size();
         @Override
         public void run() {
             try {
-                Thread.sleep(1000*val);
+                Thread.sleep(1000 * val);
                 System.out.println("Print inside sleeping thread: " + val);
                 result.add(val);
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
+    public int maxSubArray(int[] nums) {
+        int left = 0, right = left + 1;
+        int localSum = nums[left];
+        int globalSum = nums[left];
+        if (nums.length == 0) return 0;
+        else if (nums.length == 1) return nums[0];
+        while (left < nums.length && right < nums.length) {
+            if (localSum + nums[right] > nums[right]) {
+                localSum = localSum + nums[right];
+                right++;
+            } else {
+                left++;
+                localSum = nums[left];
+                right = left + 1;
+            }
+            globalSum = Math.max(localSum, globalSum);
+        }
+
+        return globalSum;
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        int globalLength = 0;
+        for (int left = 0; left < s.length(); left++) {
+            Set<Character> visited = new HashSet<Character>();
+            for (int right = left + 1; right < s.length(); right++) {
+                Character c = s.charAt(right);
+                if (visited.contains(c)) {
+                    int length = visited.size();
+                    globalLength = Math.max(length, globalLength);
+                } else {
+                    visited.add(c);
+                }
+            }
+        }
+        return globalLength;
+    }
+
+    public int maxEvents(List<Integer> arrival, List<Integer> duration) {
+        HashMap<Integer, Integer> visited = new HashMap<Integer, Integer>();
+        for (int i = 0; i < arrival.size(); i++) {
+            if (!visited.containsKey(arrival.get(i))) {
+                visited.put(arrival.get(i), arrival.get(i) + duration.get(i));
+            } else {
+                int end_time1 = arrival.get(i) + visited.get(arrival.get(i));
+                int end_time2 = arrival.get(i) + duration.get(i);
+                if (end_time1 > end_time2) {
+                    visited.put(arrival.get(i), end_time2);
+                }
+            }
+        }
+
+        Collections.sort(arrival);
+        Integer meetings = 1;
+        for (int i = 0; i < arrival.size() - 1; i++) {
+            int start_time = arrival.get(i);
+            int end_time = visited.get(start_time);
+            if (end_time <= arrival.get(i + 1)) {
+                visited.remove(arrival.get(i + 1));
+            }
+        }
+        return visited.size();
+    }
+
+    public String solution(String S) {
+        Map<Character, Integer> frequency = new HashMap<Character, Integer>();
+        int maxFrequency = 1;
+        for (Character c : S.toCharArray()) {
+            if (isVowel(c)) {
+                frequency.merge(c, 1, Integer::sum);
+                maxFrequency = Math.max(maxFrequency, frequency.get(c));
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        Character[] vowels = new Character[]{'a', 'e', 'i', 'o', 'u'};
+        for (Character c : vowels) {
+            if (frequency.containsKey(c) && frequency.get(c) == maxFrequency) {
+                sb.append("\n").append(c).append(" ").append("appears ").append(maxFrequency).append(" ").append(maxFrequency == 1 ? "time" : "times");
+            }
+        }
+        return sb.toString().trim();
+    }
+
+    public Boolean isVowel(Character ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+
+    public int[] sumZero(int n) {
+        int dummyN = n;
+        int[] output = new int[n];
+        if (n == 1) return output;
+        dummyN = (dummyN / 2) * -1;
+        for (int i = 0; i < n; dummyN++) {
+            if (dummyN == 0 && n % 2 == 0) {
+                continue;
+            } else {
+                output[i++] = dummyN;
+            }
+        }
+        return output;
+    }
+
+    public int findShortestSubArray(int[] nums) {
+        HashMap<Integer, Integer> frequency = new HashMap<Integer, Integer>();
+        int maxDegree = Integer.MIN_VALUE;
+        for (int num : nums) {
+            frequency.merge(num, 1, Integer::sum);
+            maxDegree = Math.max(maxDegree, frequency.get(num));
+        }
+        int startIndex = 0;
+        int endIndex = nums.length - 1;
+        for (int li = 0; li < nums.length; li++) {
+            Integer degree = frequency.get(nums[li]);
+            if (degree == maxDegree) {
+                for (int ri = nums.length - 1; ri > li; ri--) {
+                    if (nums[ri] == nums[li] && (ri - li) < (endIndex - startIndex)) {
+                        startIndex = li;
+                        endIndex = ri;
+                        break;
+                    }
+                }
+            }
+        }
+
+        int length = maxDegree == 1 ? 1 : (endIndex - startIndex + 1);
+        return length;
+    }
+
+    public int coinChange(int[] coins, int amount) {
+        Arrays.sort(coins);
+        int remainingAmount = amount;
+        int count = 0;
+        for (int i = coins.length - 1; i >= 0; i--) {
+            int coin = coins[i];
+            while (remainingAmount >= coin) {
+                remainingAmount -= coin;
+                count++;
+            }
+        }
+        return remainingAmount == 0 ? count : -1;
+    }
+
+    public int soln(String s) {
+        String current = s;
+        while (current.contains("01") || current.contains("10")) {
+            current = current.replaceAll("(01|10)", "");
+            current = current.replaceAll("\\s+", "");
+        }
+        return current.length();
+    }
+
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> subsets = new ArrayList<>();
+        generateSubsets(subsets, nums);
+        return subsets;
+    }
+
+    public List<List<Integer>> generateSubsets(List<List<Integer>> subsets, int[] nums) {
+        if (nums.length == 0) {
+            subsets.add(new ArrayList<>());
+            return subsets;
+        }
+        generateSubsets(subsets, Arrays.copyOfRange(nums, 1, nums.length));
+        List<List<Integer>> currentSubsets = new ArrayList<>();
+        for (int i = 0; i < subsets.size(); i++) {
+            List<Integer> currentSet = new ArrayList<>(subsets.get(i));
+            currentSet.add(nums[0]);
+            String s = currentSet.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("", "", ""));
+            currentSubsets.add(currentSet);
+        }
+        subsets.addAll(currentSubsets);
+        return subsets;
+    }
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> subsets = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+        generateSubsetsWithDup(subsets, nums, seen);
+        return subsets;
+    }
+
+    public List<List<Integer>> generateSubsetsWithDup(List<List<Integer>> subsets, int[] nums, Set<String> seen) {
+        if (nums.length == 0) {
+            subsets.add(new ArrayList<>());
+            seen.add("");
+            return subsets;
+        }
+        generateSubsetsWithDup(subsets, Arrays.copyOfRange(nums, 1, nums.length), seen);
+        List<List<Integer>> currentSubsets = new ArrayList<>();
+        for (int i = 0; i < subsets.size(); i++) {
+            List<Integer> currentSet = new ArrayList<>(subsets.get(i));
+            currentSet.add(nums[0]);
+            String s = currentSet.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "", ""));
+            if (seen.contains(s)) {
+                System.out.println(s);
+            }
+            if (!seen.contains(s)) {
+                currentSubsets.add(currentSet);
+                seen.add(s);
+            }
+        }
+        subsets.addAll(currentSubsets);
+        return subsets;
+    }
+
+    public List<Integer> minimalHeaviestSetA(List<Integer> arr) {
+        int left = 0;
+        int right = arr.size() - 1;
+        int sumA = 0;
+        int sumB = 0;
+        int rightIndex = 0;
+        Collections.sort(arr);
+        while (left < right) {
+            sumA += arr.get(right);
+            rightIndex = right;
+            while ((sumB + arr.get(left)) < sumA && left < right) {
+                sumB += arr.get(left);
+                left++;
+            }
+            right--;
+        }
+        return arr.subList(rightIndex, arr.size());
+    }
+
+    public int countGroups(List<String> related) {
+        int[][] matrix = new int[related.size()][];
+        int i = 0;
+        for (String s : related) {
+            char[] chars = s.toCharArray();
+            System.out.println(s);
+            int j = 0;
+            matrix[i] = new int[chars.length];
+            for (char c : chars) {
+                matrix[i][j] = c == '1' ? 1 : 0;
+                j++;
+            }
+            i++;
+        }
+
+        int[] visited = new int[matrix.length];
+        int count = 0;
+        for (i = 0; i < matrix.length; i++) {
+            if (visited[i] == 0) {
+                dfsHelper(matrix, visited, i);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public void dfsHelper(int[][] matrix, int[] visited, int pos) {
+        for (int j = 0; j < matrix.length; j++) {
+            if (matrix[pos][j] == 1 && visited[j] == 0) {
+                visited[j] = 1;
+                dfsHelper(matrix, visited, j);
+            }
+        }
+    }
+
+    public void priorityQueueTest() {
+        PriorityQueue<Character> minHeap
+                = new PriorityQueue<>();
+
+        String input = "gwefznknfxzl";
+        for (Character c : input.toCharArray()) {
+            minHeap.add(c);
+        }
+        System.out.println(minHeap);
+        PriorityQueue<Character> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        for (Character c : input.toCharArray()) {
+            maxHeap.add(c);
+        }
+        System.out.println(maxHeap);
+    }
+
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> maxHeap= new PriorityQueue<>();
+
+        return null;
+
+    }
 }
