@@ -1,3 +1,6 @@
+import com.sun.tools.javac.util.StringUtils;
+
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -842,7 +845,7 @@ return uniqueNumbers.size();
         for (int i = 0; i < subsets.size(); i++) {
             List<Integer> currentSet = new ArrayList<>(subsets.get(i));
             currentSet.add(nums[0]);
-            String s = currentSet.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("", "", ""));
+            //String s = currentSet.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("", "", ""));
             currentSubsets.add(currentSet);
         }
         subsets.addAll(currentSubsets);
@@ -952,9 +955,392 @@ return uniqueNumbers.size();
     }
 
     public int[][] kClosest(int[][] points, int k) {
-        PriorityQueue<int[]> maxHeap= new PriorityQueue<>();
+        PriorityQueue<int[]> maxHeap= new PriorityQueue<>((a,b) -> (b[0]-a[0]) + (b[1]-a[1]));
 
-        return null;
+        for (int[] point:points) {
+            if(maxHeap.size() < k)
+                maxHeap.add(point);
+            else if (maxHeap.size() > k && point[0] < maxHeap.peek()[0] ){
+                maxHeap.poll();
+                maxHeap.add(point);
+            }
+        }
+        int[][] result = new int[k][2];
+        int i = 0;
+        for (int[] point: maxHeap) {
+            result[i][0] = point[0];
+            result[i][1] = point[1];
+            i++;
+        }
+        return result;
 
     }
+
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue();
+        for(int num: nums){
+            minHeap.add(num);
+            if(minHeap.size()>k)
+                minHeap.poll();
+        }
+
+        return minHeap.poll();
+    }
+    public int totalStrength(int[] strength) {
+        List<List<Integer>> contiguousGroups  = new ArrayList<List<Integer>>();
+        List<Integer> sumOfGroups = new ArrayList<Integer>();
+        contiguousGroupGenerator(contiguousGroups, sumOfGroups, 0,  strength);
+        return sumOfGroups.stream().mapToInt(a->a).sum();
+    }
+
+    private void contiguousGroupGenerator(List<List<Integer>> contiguousGroups, List<Integer> sumOfGroups, int size, int[] strength) {
+        if (size == strength.length-1){
+            List<Integer> contiguousGroup = Arrays.stream(strength).boxed().collect(Collectors.toList());
+            contiguousGroups.add(contiguousGroup);
+            sumOfGroups.add(generateSum(contiguousGroup));
+        }
+    }
+
+    private Integer generateSum(List<Integer> contiguousGroup) {
+        return null;
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        List<Integer> combinedArrays = new ArrayList<>();
+        int i = 0, j = 0;
+        while(i<nums1.length && j<nums2.length){
+            if(nums1[i] <= nums2[j]){
+                combinedArrays.add(nums1[i++]);
+            }else{
+                combinedArrays.add(nums2[j++]);
+            }
+        }
+        if(i<nums1.length){
+            while(i<nums1.length){
+                combinedArrays.add(nums1[i++]);
+            }
+        }
+        if(j<nums2.length){
+            while(j<nums2.length){
+                combinedArrays.add(nums2[j++]);
+            }
+        }
+
+        double median;
+        if(combinedArrays.size()%2 == 0){
+            int index = combinedArrays.size()/2;
+            median = (combinedArrays.get(index-1) + combinedArrays.get(index))/2.00;
+        }else{
+            int index = ((combinedArrays.size()+1)/2);
+            median = combinedArrays.get(index-1);
+        }
+        return median;
+    }
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> frequency = new HashMap<>();
+        for(int num: nums){
+            frequency.merge(num, 1, Integer::sum);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue((a,b) -> frequency.get(a) - frequency.get(b));
+        for(Integer num: frequency.keySet()){
+            pq.add(num);
+            if(pq.size() > k){
+                pq.poll();
+            }
+        }
+        int[] result = new int[k];
+        while(--k>=0){
+            result[k]= pq.poll();
+        }
+        return result;
+    }
+    public void getIntervals(){
+        Integer[][] input = new Integer[3][3];
+        input[0][0] = 0;
+        input[0][1] =200;
+        input[1][0]=600;
+        input[1][1]=1440;
+        input[2][0]=200;
+        input[2][1]=400;
+        PriorityQueue<Integer[]> queue = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        for(Integer[] period: input){
+            queue.add(period);
+        }
+        int i = queue.size();
+        while(i-->1){
+            Integer[] current = queue.poll();
+            Integer[] next = queue.poll();
+            if(current[1] >= next[0]){
+                Integer[] merged = new Integer[2];
+                merged[0]=current[0];
+                merged[1] = current[1]>next[1]? current[1]: next[1];
+                queue.add(merged);
+            }else{
+                queue.add(current);
+                queue.add(next);
+            }
+        }
+        int startTime =  0;
+        List<Integer[]> intervals = new ArrayList<>();
+        Iterator<Integer[]>  iter = queue.iterator();
+        while (iter.hasNext()) {
+            Integer[] period = iter.next();
+            if(period[0] -  startTime > 0){
+                Integer[] block = new Integer[2];
+                block[0] = startTime;
+                block[1] = period[0];
+                intervals.add(block);
+            }
+            startTime=period[1];
+        }
+        Integer[] lastBlock = intervals.get(intervals.size() - 1);
+        if(startTime < 1440){
+            Integer[] block = new Integer[2];
+            block[0] = lastBlock[1];
+            block[1] = 1440;
+            intervals.add(block);
+        }
+        for (Integer[] interval: intervals) {
+            System.out.println("[" + interval[0] + "," + interval[1] + "]");
+        }
+    }
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length <= 1){
+            return intervals;
+        }
+
+        Arrays.sort(intervals, Comparator.comparingInt(a->a[0]));
+        List<int[]> mergedIntervals = new ArrayList<>();
+        int[] prev = new int[2];
+        prev[0] = intervals[0][0];
+        prev[1] = intervals[0][1];
+        mergedIntervals.add(prev);
+
+        for(int i=1; i< intervals.length; i++){
+            int[] current = new int[2];
+            current[0] = intervals[i][0];
+            current[1] = intervals[i][1];
+            if(prev[1]>=current[0]){
+                prev[1] = Math.max(prev[1], current[1]);
+            }else{
+                mergedIntervals.add(current);
+                prev = current;
+            }
+        }
+
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
+    }
+
+    long solution(int[] arr, int k, long s) {
+        List<List<Integer>> subsets = new ArrayList<>();
+        generateSubsetsOfSizeK(subsets, arr, k);
+        int count = 0;
+        for (List<Integer> subset: subsets) {
+            Integer sum = subset.stream().mapToInt(Integer::valueOf).sum();
+            if(sum == s) count++;
+        }
+        return count;
+    }
+
+    public void generateSubsetsOfSizeK(List<List<Integer>> subsets, int[] array, int size){
+        if(array.length == 0){
+            subsets.add(new ArrayList<>());
+            return;
+        }
+        generateSubsetsOfSizeK(subsets, Arrays.copyOfRange(array, 1, array.length), size);
+
+        for (List<Integer> subset:subsets) {
+            if(subset.size() < size){
+                subset.add(array[0]);
+            }
+        }
+    }
+    public int findCircleNum(int[][] isConnected) {
+        int[]  visited  = new int[isConnected.length];
+        int count = 0;
+        for(int i = 0; i< isConnected.length; i++){
+            if(visited[i] != 1){
+                count++;
+                //dfsHelper(i, isConnected, visited);
+            }
+        }
+        return  count;
+    }
+    public  void dfHelper(int index, int[][] isConnected, int[] visited ){
+        visited[index] = 1;
+        for(int j = 0; j< isConnected[index].length; ){
+
+        }
+    }
+
+    static class Node {
+        public int val;
+        public Node left;
+        public Node right;
+        public Node next;
+
+        public Node() {}
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, Node _left, Node _right, Node _next) {
+            val = _val;
+            left = _left;
+            right = _right;
+            next = _next;
+        }
+    }
+
+    public Node connect(Node root) {
+        //populate a queue with nodes of each level separated by null
+        Queue<Node> pq = new LinkedList<Node>();
+        pq.add(root);
+        pq.add(null);
+        Node prev = root;
+        while(pq.size() > 0){
+            int size = pq.size();
+            Node cur = pq.poll();
+            for (int i = 0; i < size; i++){
+                if(null!=prev){
+                    prev.next = cur;
+                    if(null!= prev.left)
+                        pq.add(prev.left);
+                    if(null!= prev.right) pq.add(prev.right);
+                }
+                prev = cur;
+            }
+            pq.add(null);
+            if(null == prev && null == cur)
+                break;
+        }
+
+        return root;
+    }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        int sum = 0;
+        sum = rangeSumBSTHelper(root, low, high, sum);
+        return sum;
+    }
+    public int rangeSumBSTHelper(TreeNode root, int low, int high, int sum){
+        if(null == root)
+            return 0;
+        if(low > root.val)
+            sum = rangeSumBSTHelper(root.right, low, high, sum);
+        else if(low <= root.val && root.val <= high){
+            sum+=root.val + rangeSumBSTHelper(root.left, low, high, sum) + rangeSumBSTHelper(root.right, low, high, sum);
+        }else if(high < root.val){
+            sum = rangeSumBSTHelper(root.left, low, high, sum);
+        }
+        return sum;
+    }
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        permutationHelper(permutations, new ArrayList(),  nums);
+        return new ArrayList<>(permutations);
+    }
+
+    public void permutationHelper(List<List<Integer>> permutations, ArrayList tempList, int[] nums){
+        if(nums.length == 1){
+            tempList.add(nums[0]);
+            permutations.add(new ArrayList<>(tempList));
+            tempList.remove(tempList.size()-1);
+        }else{
+            for (int i = 0; i < nums.length; i++) {
+                tempList.add(nums[i]);
+                swap(nums, 0, i);
+                permutationHelper(permutations, tempList, Arrays.copyOfRange(nums,1, nums.length));
+                swap(nums, 0, i);
+                tempList.remove(tempList.size()-1);
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    public int smallestPositiveInteger(int[] A) {
+        Arrays.sort(A);
+        int low = 0; int high = A.length-1;
+        while (low<=high){
+            int mid = low + ((high-low)/2);
+            if(A[mid]>0){
+                high = low;
+            }
+        }
+        BigInteger bi;
+
+        return 1;
+
+    }
+
+    public int twitch(String S) {
+        Integer upperLimit = 1048576;
+        Stack<Integer> wordMachine = new Stack<>();
+        for(String cur: S.split(" ")){
+            if(cur.matches("^\\d+$")){
+                try{
+                    Integer current = Integer.parseInt(cur);
+                    if(0 <= current && current < upperLimit)
+                    {
+                        wordMachine.push(current);
+                    }
+                    else{
+                        return -1;
+                    }
+                }
+                catch(Exception e){
+                    return -1;
+                }
+            }else if(cur.equalsIgnoreCase("POP")){
+                if(wordMachine.isEmpty()) return -1;
+                wordMachine.pop();
+            }else if(cur.equalsIgnoreCase("DUP")){
+                if(wordMachine.isEmpty()) return -1;
+                Integer top = wordMachine.peek();
+                wordMachine.push(top);
+            }else if(cur.equals("+")){
+                if(wordMachine.size() < 2) return -1;
+                Integer op1 = wordMachine.pop();
+                Integer op2 = wordMachine.pop();
+                Integer sum = op1+op2;
+                if(sum < upperLimit){
+                    wordMachine.push(sum);
+                }else{
+                    return 1;
+                }
+            }else if(cur.equals("-")){
+                if(wordMachine.size() < 2) return -1;
+                Integer op1 = wordMachine.pop();
+                Integer op2 = wordMachine.pop();
+                Integer diff = op1-op2;
+                if(0> diff){
+                    wordMachine.push(diff);
+                }else{
+                    return -1;
+                }
+            }
+        }
+        Integer result = wordMachine.isEmpty()? -1: wordMachine.peek();
+        return result;
+    }
 }
+

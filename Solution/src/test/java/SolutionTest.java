@@ -204,6 +204,111 @@ public class SolutionTest {
 
     @Test
     public void kClosestTest(){
-        assertEquals(null, solution.kClosest(null, 0));
+        int[][] points = new int[3][2];
+        points[0][0] = 1;
+        points[0][1] = 3;
+        points[1][0] = -2;
+        points[1][1] = 2;
+        points[2][0] = 2;
+        points[2][1] = -2;
+        assertEquals(2, solution.kClosest(points, 2).length);
+    }
+
+    @Test
+    public void topKFrequentTest() {
+        int[] nums1 = new int[]{1,1,1,2,2,3};
+        int[] nums2 = new int[]{1,2};
+        assertEquals(nums2, solution.topKFrequent(nums1, 2));
+    }
+
+    @Test
+    public void findMedianSortedArraysTest() {
+        int[] nums1 = new int[]{1,2};
+        int[] nums2 = new int[]{3,4};
+        assertEquals(2.5, solution.findMedianSortedArrays(nums1, nums2), 0);
+    }
+
+    @Test
+    public void getIntervalsTest(){
+        solution.getIntervals();
+    }
+
+    @Test
+    public void mergeTest(){
+        int[][] inputs = new int[3][2];
+//        inputs[0][0] = 1;
+//        inputs[0][1] = 3;
+//        inputs[1][0] = 2;
+//        inputs[1][1] = 6;
+//        inputs[2][0] =8;
+//        inputs[2][1] = 10;
+//        inputs[3][0] = 15;
+//        inputs[3][1] = 18;
+        inputs[0][0] = 1;
+        inputs[0][1] = 4;
+        inputs[1][0] = 0;
+        inputs[1][1] = 2;
+        inputs[2][0] =3;
+        inputs[2][1] = 5;
+
+        solution.merge(inputs);
+    }
+
+    @Test
+    public void connectTest(){
+        Solution.Node node1 = new Solution.Node(1);
+        Solution.Node node2 = new Solution.Node(2);
+        Solution.Node node3 = new Solution.Node(3);
+        Solution.Node node4 = new Solution.Node(4);
+        Solution.Node node5 = new Solution.Node(5);
+        Solution.Node node6 = new Solution.Node(6);
+        Solution.Node node7 = new Solution.Node(7);
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
+        node2.right=node5;
+        node3.left = node6;
+        node3.right = node7;
+        solution.connect(node1);
+    }
+
+     @Test
+    public void rangeSumBSTTest(){
+        Solution.TreeNode node1 = new Solution.TreeNode(18);
+        Solution.TreeNode node2 = new Solution.TreeNode(9);
+        Solution.TreeNode node3 = new Solution.TreeNode(27);
+        Solution.TreeNode node4 = new Solution.TreeNode(6);
+        Solution.TreeNode node5 = new Solution.TreeNode(15);
+        Solution.TreeNode node6 = new Solution.TreeNode(24);
+        Solution.TreeNode node7 = new Solution.TreeNode(30);
+        Solution.TreeNode node8 = new Solution.TreeNode(3);
+        Solution.TreeNode node9 = new Solution.TreeNode(12);
+        Solution.TreeNode node10 = new Solution.TreeNode(21);
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
+        node2.right=node5;
+        node3.left = node6;
+        node3.right = node7;
+        node4.left = node8;
+        node5.left = node9;
+        node6.left = node10;
+        assertEquals(18, solution.rangeSumBST(node1, 18, 24));
+    }
+
+    @Test
+    public void permutationTest(){
+        assertEquals(6, solution.permute(new int[]{1,2,3}).size());
+    }
+    @Test
+    public void smallestPositiveIntegerTest(){
+        //int[] input = new int[]{1,3,6,4,1,2};
+        int[] input = new int[]{3,1,2};
+        assertEquals(4, solution.smallestPositiveInteger(input));
+    }
+
+    @Test
+    public void twitchTest(){
+        solution.twitch("1048575 DUP +");
     }
 }
