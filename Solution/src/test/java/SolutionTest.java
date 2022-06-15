@@ -311,4 +311,11 @@ public class SolutionTest {
     public void twitchTest(){
         solution.twitch("1048575 DUP +");
     }
+
+    @Test
+    public void buildTreeTest(){
+        int[] preorder = new  int[]{3,9,1,2,20,15,7};
+        int[] inorder = new int[]{1,9,2,3,15,20,7};
+        solution.buildTree(preorder, inorder);
+    }
 }

@@ -1,5 +1,3 @@
-import com.sun.tools.javac.util.StringUtils;
-
 import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -1341,6 +1339,25 @@ return uniqueNumbers.size();
         }
         Integer result = wordMachine.isEmpty()? -1: wordMachine.peek();
         return result;
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        HashMap<Integer, Integer> inorderMap = new HashMap();
+        for(int i=0; i<inorder.length; i++){
+            inorderMap.put(inorder[i], i);
+        }
+        TreeNode root =  buildTreeHelper(preorder, inorder, inorderMap);
+        return root;
+    }
+    public TreeNode buildTreeHelper(int[] preOrder, int[] inOrder, HashMap<Integer, Integer> inorderMap){
+        if(preOrder.length == 0 || inOrder.length  == 0){
+            return null;
+        }
+        TreeNode root = new TreeNode(preOrder[0]);
+        int inIndex = inorderMap.get(preOrder[0]);
+        root.left = buildTreeHelper(Arrays.copyOfRange(preOrder, 1, ), Arrays.copyOfRange(inOrder,0, inIndex), inorderMap);
+        root.right = buildTreeHelper(Arrays.copyOfRange(preOrder, inIndex+1, preOrder.length),  Arrays.copyOfRange(inOrder, inIndex+1, inOrder.length), inorderMap);
+        return root;
     }
 }
 
